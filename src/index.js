@@ -7,6 +7,7 @@ import SearchBar from './components/search_bar';
 
 const API_KEY = 'AIzaSyB9LhgWi9_FEJYvVkcuIDd7BlM6xU4Mi8s';
 
+// section 2 AJAX Requests with React
 YTSearch({key: API_KEY, term:'surfboards', function(data){
   console.log('====================================');
   console.log(data);
