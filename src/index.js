@@ -1,30 +1,41 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import YTSearch from 'youtube-api-search';
 
-// my scripts 
+// my scripts section 
 import SearchBar from './components/search_bar';
+import VideoList from './components/video_list';
 
+
+// credential   to Tou-Tube
 const API_KEY = 'AIzaSyB9LhgWi9_FEJYvVkcuIDd7BlM6xU4Mi8s';
 
-// section 2 AJAX Requests with React
-YTSearch({key: API_KEY, term:'surfboards', function(data){
-  console.log('====================================');
-  console.log(data);
-  console.log('====================================');
-}});
-
 // Create a new component. This component should produce some HTML
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { videos: [] };
 
-const App = () => {
+    // call to youtube by using AJAX and you-tube API
+    // section 2 AJAX Requests with React
+    YTSearch({ key: API_KEY, term: 'surfboards' }, (videos) => {
+      this.setState({ videos });
+      // this.setState ({videos: videos});
+    });
+
+  }
+
+  render() {
     return (
-    <div> 
-      <SearchBar />
-    </div>
+      <div>
+        <SearchBar />
+        <VideoList videos={this.state.videos} />
+      </div>
     );
+  }
 };
 
 
 // Take this component's generate HTML and put it on the page ( in DOM)
 
-ReactDOM.render( <App/> , document.querySelector('.container'));
+ReactDOM.render(<App />, document.querySelector('.container'));
